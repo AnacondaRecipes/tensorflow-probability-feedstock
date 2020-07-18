@@ -12,9 +12,8 @@ source:
   sha256: 66928dcbbc12987e574232a576bd9643ba7ca6b2a837f2182417286ac955d50f                    # [win]
 
 build:
-  noarch: python
   number: 0
-  skip: True  # [not win-64]
+  skip: True  # [not win]
 
 requirements:
   host:
@@ -31,7 +30,7 @@ requirements:
     - decorator
     - cloudpickle ==1.2.2
     - gast >=0.2
-    - tensorflow-base ==2.1
+    - tensorflow ==2.1
 
 test:
   imports:
