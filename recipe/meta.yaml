@@ -29,7 +29,6 @@ requirements:
     - wheel
   run:
     - python
-    - tensorflow-base >=2,<3 
     - absl-py
     - six >=1.10.0
     - numpy >=1.13.3
