@@ -23,12 +23,12 @@ requirements:
     - m2-patch # [win]
     - patch  # [not win]
   host:
-    - python
+    - python >=3.6
     - pip
     - setuptools
     - wheel
   run:
-    - python
+    - python >=3.6
     - absl-py
     - six >=1.10.0
     - numpy >=1.13.3
