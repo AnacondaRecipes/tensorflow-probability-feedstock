@@ -12,6 +12,7 @@ source:
     - 0001-always-build-release.patch
 
 build:
+  noarch: python
   # dm-tree not available on s390x
   skip: True  # [s390x or py<36]
   number: 1
