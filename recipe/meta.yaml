@@ -12,23 +12,24 @@ source:
     - 0001-always-build-release.patch
 
 build:
-  noarch: python
+  # dm-tree not available on s390x
+  skip: True  # [s390x or py<36]
   number: 1
   script: 
     - rm -f BUILD
-    - "{{ PYTHON }} -m pip install . --no-deps -vv"
+    - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   build:
-    - m2-patch # [win]
-    - patch  # [not win]
+    - m2-patch  # [win]
+    - patch     # [not win]
   host:
-    - python >=3.6
+    - python
     - pip
     - setuptools
     - wheel
   run:
-    - python >=3.6
+    - python
     - absl-py
     - six >=1.10.0
     - numpy >=1.13.3
