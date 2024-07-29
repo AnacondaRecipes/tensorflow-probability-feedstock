@@ -13,7 +13,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: 
     - rm -f BUILD
     - "{{ PYTHON }} -m pip install . --no-deps -vv"
@@ -36,6 +36,9 @@ requirements:
     - cloudpickle >=1.3
     - gast >=0.3.2  # For autobatching
     - dm-tree  # For NumPy/JAX backends (hence, also for prefer_static)
+  run_constrained:
+    # https://github.com/tensorflow/probability/blob/21ce02d10112504632ff9c1d22e5cd93ec24694b/tensorflow_probability/python/__init__.py#L58-L68
+    - tensorflow >=2.6
 
 test:
   imports:
