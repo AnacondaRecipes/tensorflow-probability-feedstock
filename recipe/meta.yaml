@@ -41,6 +41,8 @@ requirements:
   run_constrained:
     # https://github.com/tensorflow/probability/blob/21ce02d10112504632ff9c1d22e5cd93ec24694b/tensorflow_probability/python/__init__.py#L58-L68
     - tensorflow >=2.16
+    - tensorflow-datasets >=2.2.0
+    - tf-keras >=2.16
 
 test:
   imports:
