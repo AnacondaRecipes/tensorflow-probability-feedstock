@@ -1,5 +1,5 @@
 {% set name = "tensorflow-probability" %}
-{% set version = "0.14.0" %}
+{% set version = "0.24.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/tensorflow/probability/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 54fe9a9cbfee5d02a561c92a730eb29166fa757084b9ccb3f700de42ddeafcfb
+  sha256: 3d75418cef09ea357ee879347133ab784fe4637a5ba251a8e06ef930dd970a3e
   patches:
     - 0001-always-build-release.patch
 
@@ -40,7 +40,9 @@ requirements:
     - dm-tree  # For NumPy/JAX backends (hence, also for prefer_static)
   run_constrained:
     # https://github.com/tensorflow/probability/blob/21ce02d10112504632ff9c1d22e5cd93ec24694b/tensorflow_probability/python/__init__.py#L58-L68
-    - tensorflow >=2.6
+    - tensorflow >=2.16
+    - tensorflow-datasets >=2.2.0
+    - tf-keras >=2.16
 
 test:
   imports:
