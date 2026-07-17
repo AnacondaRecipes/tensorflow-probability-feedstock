@@ -1,17 +1,17 @@
-From 8acfd85ce1e671d7d4153cef5c9f4de23eeadf77 Mon Sep 17 00:00:00 2001
+From 5c2ca2912911d0408e3056dce14320edc0a3edcd Mon Sep 17 00:00:00 2001
 From: Andrii Osipov <aosipov@anaconda.com>
 Date: Fri, 17 Jul 2026 08:31:48 -0700
 Subject: [PATCH] rendomize foler where windows build pip_pkg
 
 ---
- pip_pkg.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ pip_pkg.sh | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/pip_pkg.sh b/pip_pkg.sh
-index 9026ba8..9bb1712 100755
+index 9026ba8..ddf680c 100755
 --- a/pip_pkg.sh
 +++ b/pip_pkg.sh
-@@ -35,7 +35,7 @@ DEST=$(cd "$DEST" && pwd)
+@@ -35,12 +35,14 @@ DEST=$(cd "$DEST" && pwd)
  
  # Use cp -L to resolve symlinks added as part of bazel build. Otherwise wheel
  # does not follow them and fails to include TFP on JAX/Numpy.
@@ -20,6 +20,13 @@ index 9026ba8..9bb1712 100755
  if [[ -d bazel-bin/pip_pkg.exe.runfiles ]]; then
    RUNFILES_DIR=bazel-bin/pip_pkg.exe.runfiles
  else
+   RUNFILES_DIR=bazel-bin/pip_pkg.runfiles
+ fi
++
++rm -rf "${pip_tmp}/*"
+ cp -L -R "${RUNFILES_DIR}/tensorflow_probability" "${pip_tmp}"
+ cd "${pip_tmp}/tensorflow_probability"
+ 
 -- 
 2.39.5 (Apple Git-154)
 
