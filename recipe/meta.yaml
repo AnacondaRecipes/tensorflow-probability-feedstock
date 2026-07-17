@@ -24,6 +24,7 @@ build:
     - mkdir -p tmp-pkg                                                           # [unix]
     - ./bazel-bin/pip_pkg tmp-pkg                                                # [unix]
     - {{ PYTHON }} -m pip install --upgrade --no-deps --no-build-isolation -vv tmp-pkg/*.whl  # [unix]
+    - bazel shutdown --expunge  # [win]
     - bazel build --copt=-O3 --enable_runfiles :pip_pkg                          # [win]
     - if not exist tmp-pkg mkdir tmp-pkg                                         # [win]
     - bazel-bin\pip_pkg.exe tmp-pkg                                              # [win]
