@@ -13,6 +13,7 @@ source:
     - patches/0002-fix_jax_pytype_mapping.patch
     - patches/0003-Fix-non-portable-date-utc-on-osx.patch
     - patches/0004-print-setup.py-output.patch
+    - patches/0005-Fix-windows-runfiles-path.patch
 
 build:
   number: 0
