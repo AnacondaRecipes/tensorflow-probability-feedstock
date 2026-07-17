@@ -1,0 +1,37 @@
+From 27450e752d4120229d05839063882378127f7e95 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Fri, 17 Jul 2026 09:32:27 -0700
+Subject: [PATCH] cp with retry
+
+---
+ pip_pkg.sh | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/pip_pkg.sh b/pip_pkg.sh
+index 3f40844..ab73948 100755
+--- a/pip_pkg.sh
++++ b/pip_pkg.sh
+@@ -42,7 +42,19 @@ else
+   RUNFILES_DIR=bazel-bin/pip_pkg.runfiles
+ fi
+ 
+-cp -L -R "${RUNFILES_DIR}/tensorflow_probability" "${pip_tmp}"
++#cp -L -R "${RUNFILES_DIR}/tensorflow_probability" "${pip_tmp}"
++cp_with_retry() {
++  local n=0
++  until cp -L -R "$1" "$2" 2>/tmp/cp_err_$$; do
++    n=$((n+1))
++    [[ $n -ge 3 ]] && { cat /tmp/cp_err_$$; return 1; }
++    echo "cp -L -R failed (attempt $n), retrying after cleanup..."
++    rm -rf "${2:?}/tensorflow_probability"
++    sleep 2
++  done
++}
++cp_with_retry "${RUNFILES_DIR}/tensorflow_probability" "${pip_tmp}"
++
+ cd "${pip_tmp}/tensorflow_probability"
+ 
+ echo >>tensorflow_probability/python/version.py \
+-- 
+2.39.5 (Apple Git-154)
+
