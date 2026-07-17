@@ -1,0 +1,27 @@
+From 3e8f719b3c8f7f10fb6f26e110ab7d99557a2c44 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Fri, 17 Jul 2026 01:01:21 -0700
+Subject: [PATCH] Always build as release
+
+---
+ setup.py | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 7b6ffd8..87640f3 100644
+--- a/setup.py
++++ b/setup.py
+@@ -31,9 +31,8 @@ from version import __version__  # pylint: disable=g-import-not-at-top
+ sys.path.append(os.path.dirname(__file__))
+ from required_packages import REQUIRED_PACKAGES  # pylint: disable=g-import-not-at-top, g-bad-import-order
+ 
+-if '--release' in sys.argv:
++if True:
+   release = True
+-  sys.argv.remove('--release')
+ else:
+   # Build a nightly package by default.
+   release = False
+-- 
+2.39.5 (Apple Git-154)
+
