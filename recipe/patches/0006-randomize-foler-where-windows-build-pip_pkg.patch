@@ -1,0 +1,31 @@
+From dd184eb98d676e6a8e27d9cc9b56a64080d3a4d8 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Fri, 17 Jul 2026 08:31:48 -0700
+Subject: [PATCH] randomize foler where windows build pip_pkg
+
+---
+ pip_pkg.sh | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/pip_pkg.sh b/pip_pkg.sh
+index 9026ba8..3f40844 100755
+--- a/pip_pkg.sh
++++ b/pip_pkg.sh
+@@ -35,12 +35,13 @@ DEST=$(cd "$DEST" && pwd)
+ 
+ # Use cp -L to resolve symlinks added as part of bazel build. Otherwise wheel
+ # does not follow them and fails to include TFP on JAX/Numpy.
+-pip_tmp="$(mktemp -d)"
++pip_tmp="$(mktemp -d "${TMPDIR:-/tmp}/pip_pkg_${PY_VER}_XXXXXX")"
+ if [[ -d bazel-bin/pip_pkg.exe.runfiles ]]; then
+   RUNFILES_DIR=bazel-bin/pip_pkg.exe.runfiles
+ else
+   RUNFILES_DIR=bazel-bin/pip_pkg.runfiles
+ fi
++
+ cp -L -R "${RUNFILES_DIR}/tensorflow_probability" "${pip_tmp}"
+ cd "${pip_tmp}/tensorflow_probability"
+ 
+-- 
+2.39.5 (Apple Git-154)
+
