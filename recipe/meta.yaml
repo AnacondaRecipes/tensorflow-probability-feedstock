@@ -20,18 +20,18 @@ build:
   script:
     build:
   script:
-    - bazel --max_idle_secs=1 build --copt=-O3 :pip_pkg                                            # [unix]
+    - bazel --max_idle_secs=1 build --copt=-O3 :pip_pkg                          # [unix]
     - mkdir -p tmp-pkg                                                           # [unix]
     - ./bazel-bin/pip_pkg tmp-pkg                                                # [unix]
     - {{ PYTHON }} -m pip install --upgrade --no-deps --no-build-isolation -vv tmp-pkg/*.whl  # [unix]
-    - bazel shutdown --expunge  # [win]
-    - bazel build --copt=-O3 --enable_runfiles :pip_pkg                          # [win]
+    - bazel shutdown                                                             # [win]
+    - bazel --output_user_root=%TEMP%\bazel_out_%RANDOM% --max_idle_secs=1 build --copt=-O3 --enable_runfiles :pip_pkg        # [win]
     - if not exist tmp-pkg mkdir tmp-pkg                                         # [win]
     - bazel-bin\pip_pkg.exe tmp-pkg                                              # [win]
     - dir tmp-pkg                                                                # [win]
     - for %%f in (tmp-pkg\*.whl) do (%PYTHON% -m pip install --upgrade --no-deps --no-build-isolation -vv "%%f")  # [win]
     # Error: [WinError 5] Access is denied: 'Library\\bin\\server\\jvm.dll'
-    - bazel shutdown --expunge  # [win]
+    - bazel shutdown                                                             # [win]
   skip: true  # [py<39]
 
 requirements:
