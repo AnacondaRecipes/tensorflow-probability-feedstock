@@ -19,7 +19,8 @@ build:
     - bazel build --copt=-O3 :pip_pkg
     - mkdir -p tmp-pkg
     - ./bazel-bin/pip_pkg tmp-pkg
-    - {{ PYTHON }} -m pip install --upgrade --no-deps --no-build-isolation -vv tmp-pkg/*.whl
+    - {{ PYTHON }} -m pip install --upgrade --no-deps --no-build-isolation -vv tmp-pkg/*.whl  # [unix]
+    - for %%f in (tmp-pkg\*.whl) do ("%PYTHON%" -m pip install --upgrade --no-deps --no-build-isolation -vv "%%f")  # [win]
   skip: true  # [py<39]
 
 requirements:
