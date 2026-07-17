@@ -30,7 +30,7 @@ build:
     - dir tmp-pkg                                                                # [win]
     - for %%f in (tmp-pkg\*.whl) do (%PYTHON% -m pip install --upgrade --no-deps --no-build-isolation -vv "%%f")  # [win]
     # Error: [WinError 5] Access is denied: 'Library\\bin\\server\\jvm.dll'
-    - bazel shutdown  # [win]
+    - bazel shutdown --expunge  # [win]
   skip: true  # [py<39]
 
 requirements:
