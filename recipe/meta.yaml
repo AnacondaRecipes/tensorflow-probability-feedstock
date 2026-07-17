@@ -11,16 +11,15 @@ source:
   patches:
     - patches/0001-Always-build-as-release.patch
     - patches/0002-fix_jax_pytype_mapping.patch
-    - patches/0003-Fix-pip_pkg-version.py-path-and-non-portable-date-ut.patch
-    #- patches/0004-debug.patch
+    - patches/0003-Fix-non-portable-date-utc-on-osx.patch
 
 build:
   number: 0
   script:
-    - bazel build --copt=-O3 --copt=-march=native :pip_pkg
+    - bazel build --copt=-O3 :pip_pkg
     - mkdir -p tmp-pkg
     - ./bazel-bin/pip_pkg tmp-pkg
-    - {{ PYTHON }} -m pip install --upgrade --no-deps -vv tmp-pkg/*.whl
+    - {{ PYTHON }} -m pip install --upgrade --no-deps --no-build-isolation -vv tmp-pkg/*.whl
   skip: true  # [py<39]
 
 requirements:
@@ -29,7 +28,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - absl-py
-    - bazel 7.*
+    - bazel <7
     - bazel-toolchain >=0.4.1  # [unix]
     - setuptools
   host:
