@@ -1,0 +1,26 @@
+From 1eea7444de0b4aac1f451a34bb5534d582db4003 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Fri, 17 Jul 2026 09:32:27 -0700
+Subject: [PATCH] cp with force
+
+---
+ pip_pkg.sh | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/pip_pkg.sh b/pip_pkg.sh
+index 3f40844..ff74839 100755
+--- a/pip_pkg.sh
++++ b/pip_pkg.sh
+@@ -42,7 +42,8 @@ else
+   RUNFILES_DIR=bazel-bin/pip_pkg.runfiles
+ fi
+ 
+-cp -L -R "${RUNFILES_DIR}/tensorflow_probability" "${pip_tmp}"
++cp -L -Rf "${RUNFILES_DIR}/tensorflow_probability" "${pip_tmp}"
++
+ cd "${pip_tmp}/tensorflow_probability"
+ 
+ echo >>tensorflow_probability/python/version.py \
+-- 
+2.39.5 (Apple Git-154)
+

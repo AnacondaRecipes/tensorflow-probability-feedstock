@@ -15,7 +15,7 @@ source:
     - patches/0004-print-setup.py-output.patch
     - patches/0005-Fix-windows-runfiles-path.patch
     - patches/0006-randomize-foler-where-windows-build-pip_pkg.patch
-    - patches/0007-cp-with-retry.patch
+    - patches/0007-cp-with-force.patch
 
 build:
   number: 0
