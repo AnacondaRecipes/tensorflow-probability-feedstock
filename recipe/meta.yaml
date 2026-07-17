@@ -14,9 +14,8 @@ source:
     - patches/0003-Fix-non-portable-date-utc-on-osx.patch
     - patches/0004-print-setup.py-output.patch
     - patches/0005-Fix-windows-runfiles-path.patch
-    - patches/0006-randomize-foler-where-windows-build-pip_pkg.patch
-    - patches/0007-cp-with-force.patch  # [win]
-    - patches/0008-continue-if-exist.patch  # [win]
+    - patches/0006-randomize-foler-where-windows-build-pip_pkg.patch  # [win]
+    - patches/0007-continue-if-pip_pkg-already-exists.patch  # [win]
 
 build:
   number: 0

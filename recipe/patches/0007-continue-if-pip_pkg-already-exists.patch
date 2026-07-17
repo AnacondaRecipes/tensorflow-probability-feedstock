@@ -1,0 +1,35 @@
+From 54a1f2ec6bd4f1f41eb84543d2dddeb3b7272a1b Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Fri, 17 Jul 2026 16:48:29 -0700
+Subject: [PATCH] continue if pip_pkg already exists
+
+---
+ pip_pkg.sh | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/pip_pkg.sh b/pip_pkg.sh
+index 3f40844..f003900 100755
+--- a/pip_pkg.sh
++++ b/pip_pkg.sh
+@@ -42,7 +42,17 @@ else
+   RUNFILES_DIR=bazel-bin/pip_pkg.runfiles
+ fi
+ 
+-cp -L -R "${RUNFILES_DIR}/tensorflow_probability" "${pip_tmp}"
++src="${RUNFILES_DIR}/tensorflow_probability"
++mkdir -p "${pip_tmp}/tensorflow_probability"
++# Windows: cp -L -R trips on runfiles artifact "pip_pkg" (file vs dir).
++for entry in "${src}"/*; do
++  base="$(basename "${entry}")"
++  if [[ "${base}" == "pip_pkg" ]]; then
++    continue
++  fi
++  cp -L -R "${entry}" "${pip_tmp}/tensorflow_probability/"
++done
++
+ cd "${pip_tmp}/tensorflow_probability"
+ 
+ echo >>tensorflow_probability/python/version.py \
+-- 
+2.39.5 (Apple Git-154)
+
