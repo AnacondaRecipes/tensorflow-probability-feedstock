@@ -20,8 +20,6 @@ source:
 build:
   number: 0
   script:
-    build:
-  script:
     - bazel --max_idle_secs=1 build --copt=-O3 :pip_pkg                          # [unix]
     - mkdir -p tmp-pkg                                                           # [unix]
     - ./bazel-bin/pip_pkg tmp-pkg                                                # [unix]
