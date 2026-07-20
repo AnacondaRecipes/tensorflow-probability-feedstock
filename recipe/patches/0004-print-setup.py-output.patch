@@ -1,0 +1,25 @@
+From 5c93abfc5f37a5004da70665348a525487bf4974 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Fri, 17 Jul 2026 06:48:28 -0700
+Subject: [PATCH] print setup.py output
+
+---
+ pip_pkg.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pip_pkg.sh b/pip_pkg.sh
+index 147a252..c3b8866 100755
+--- a/pip_pkg.sh
++++ b/pip_pkg.sh
+@@ -45,7 +45,7 @@ echo >>tensorflow_probability/python/version.py \
+ # specifies the output dir) to setup.py, e.g.,
+ #  ./pip_pkg /tmp/tensorflow_probability_pkg --gpu --release
+ # passes `--gpu --release` to setup.py.
+-python setup.py bdist_wheel --universal ${@:2} --dist-dir="$DEST" >/dev/null
++python setup.py bdist_wheel --universal ${@:2} --dist-dir="$DEST"
+ 
+ set +x
+ echo -e "\nBuild complete. Wheel files are in $DEST"
+-- 
+2.39.5 (Apple Git-154)
+

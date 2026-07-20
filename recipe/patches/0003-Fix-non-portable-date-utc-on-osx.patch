@@ -1,0 +1,25 @@
+From f3f5852005fa7de71b18cc38af6cf5286597e419 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Fri, 17 Jul 2026 05:31:34 -0700
+Subject: [PATCH] Fix non-portable `date --utc` on osx
+
+---
+ pip_pkg.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pip_pkg.sh b/pip_pkg.sh
+index e19dbbf..147a252 100755
+--- a/pip_pkg.sh
++++ b/pip_pkg.sh
+@@ -40,7 +40,7 @@ cp -L -R bazel-bin/pip_pkg.runfiles/tensorflow_probability "${pip_tmp}"
+ cd "${pip_tmp}/tensorflow_probability"
+ 
+ echo >>tensorflow_probability/python/version.py \
+-  "if __version__.endswith('dev'): __version__ += '$(date --utc +%Y%m%d)'"
++  "if __version__.endswith('dev'): __version__ += '$(date -u +%Y%m%d)'"
+ # Pass through remaining arguments (following the first argument, which
+ # specifies the output dir) to setup.py, e.g.,
+ #  ./pip_pkg /tmp/tensorflow_probability_pkg --gpu --release
+-- 
+2.39.5 (Apple Git-154)
+
